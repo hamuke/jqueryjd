@@ -1,0 +1,95 @@
+@font-face {
+    font-family: 'iconfont';  /* Project id 2864471 */
+    src: url('http://at.alicdn.com/t/font_2864471_a88av6i2e2a.woff2?t=1634185294646') format('woff2'),
+         url('http://at.alicdn.com/t/font_2864471_a88av6i2e2a.woff?t=1634185294646') format('woff'),
+         url('http://at.alicdn.com/t/font_2864471_a88av6i2e2a.ttf?t=1634185294646') format('truetype');
+  }
+/* 包裹层 */
+.my-swiper-wrapper > *{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+.my-swiper-wrapper{
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+/* 内容区 */
+.my-swiper-wrapper_animate .my-swiper-item {
+    float: left;
+}
+.my-swiper-wrapper_fade .my-swiper-item {
+    position: absolute;
+    display: none;
+}
+.my-swiper-wrapper_animate .my-swiper-content {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+/* 左右切换按钮 */
+.my-swiper-btn{
+    width: 25px;
+    height: 35px;
+    line-height: 35px;
+    position: absolute;
+    top: 50%;
+    margin-top: -17.5px;
+    text-align: center;
+    color:#fff;
+    background-color: rgba(0,0,0,.15);
+    cursor: pointer;
+    user-select: none;
+}
+
+.my-swiper-left{
+    border-top-right-radius: 18px;
+    border-bottom-right-radius: 18px;
+}
+.my-swiper-right{
+    border-top-left-radius: 18px;
+    border-bottom-left-radius: 18px;
+    right: 0;
+}
+
+.my-swiper-btn .iconfont{
+    font-size: 12px;
+    font-weight: bold;
+    position: absolute;
+    display: inline-block;
+    width: 18px;
+    font-family: iconfont;
+    font-style: normal;
+}
+
+.my-swiper-btn.my-swiper-left .iconfont{
+    left: 0px;
+}
+.my-swiper-btn.my-swiper-right .iconfont{
+    right: 0px;
+}
+
+/* 小圆点区域 */
+.my-swiper-spots{
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    padding: 0 10px;
+}
+
+.my-swiper-spots span{
+    display: inline-block;
+    border-radius: 100%;
+    width: 10px;
+    height: 10px;
+    background-color: #fff;
+    margin: 0 2px;
+    cursor: pointer;
+    border: 1px solid rgba(0,0,0,.05);
+    background: rgba(255,255,255,.4);
+}

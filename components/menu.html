@@ -1,0 +1,81 @@
+<ul class="menu">menu</ul>
+<div class="menu-content">
+    <div class="tabs"></div>
+    <div class="details"></div>
+</div>
+
+<script>
+    (function () {
+        var menuData = [];
+        // 请求数据
+        $.ajax({
+            url: "/menu",
+            type: "get",
+            dataType: "json",
+            success: function (res) {
+                menuData = res.data;
+                renderMenuList(res.data);
+            },
+        });
+        // 渲染左侧菜单栏
+        function renderMenuList(data) {
+            // 所有li数组
+            var lisList = data.map(function (item) {
+                // li数组中的每一行
+                var liItem = item.titles.map(function (title) {
+                    // 返回一行中的每一项
+                    return `<a href="${title.href}">${title.name}</a>`;
+                });
+                // 返回每一行，每一项用/分割为字符串
+                return `<li class="menu-item">${liItem.join("/")}</li>`;
+            });
+            //  将所有li数组添加到menu中
+            $('.menu').html(lisList.join(""));
+        }
+
+        // 鼠标移入每一行时的操作
+        $('.menu').on("mouseenter", "li", function () {
+            // 鼠标移入行有背景颜色
+            $(this).addClass("menu-active").siblings().removeClass("menu-active");
+            // 渲染右侧对应行的内容区
+            var index = $(this).index();
+            renderContent(menuData[index].content);
+        });
+        // 渲染右侧对应行的内容区
+        function renderContent(data) {
+            var tabsData = data.tabs;
+            var detailsData = data.details;
+            var tabsArr = tabsData.map(function (item) {
+                return `
+                <a href=${item.href}>${item.name}
+                    <i class="iconfont">&#xe625;</i></a>
+                `;
+            });
+            // dl每行的内容 dt列表标题 dd列表内容
+            var myDl = detailsData.map(function (item) {
+                var myDt = item.category.map(function (item) {
+                    return `<dt class="menu-item-dt">
+                    <a href="${item.href}">
+                        ${item.name}
+                        <i class="iconfont">&#xe625;</i>
+                        </a></dt>`;
+                });
+                var myDdArr = item.items.map(function (item) {
+                    return `<dd class="menu-item-dd">
+                            <a href="${item.href}">
+                                ${item.name}</a></dd>`;
+                })
+                return `<dl>${myDt.join("")}${myDdArr.join("")}</dl>`;
+            });
+            $('.menu-content > .tabs').html(tabsArr.join(""));
+            $('.menu-content > .details').html(myDl.join(""));
+            $('.menu-content').show();
+        }
+        
+        //鼠标移出整个区域的操作
+        $('.fs-1').mouseleave(function(){
+            $('.menu-active').removeClass('menu-active');
+            $('.menu-content').hide();
+        })
+    })();
+</script>

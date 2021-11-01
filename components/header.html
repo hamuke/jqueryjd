@@ -1,0 +1,164 @@
+<div class="header-content">
+    <div class="logo">
+        <h1>
+            <a href="#">
+                <img src="https://misc.360buyimg.com/mtd/pc/index_2019/1.0.0/assets/sprite/header/sprite.png" alt="JD"
+                    class="target" />
+            </a>
+            <a href="#">
+                <img src="http://img1.360buyimg.com/da/jfs/t1/14716/32/11447/94000/5c90a83bEaa611013/18490bf08654ba09.gif?v=0.36068380359321317"
+                    alt="JD" class="img-gif" />
+            </a>
+        </h1>
+    </div>
+    <div class="search-wrapper">
+        <div class="search-form">
+            <input class="search-input" type="text" placeholder="外置光驱">
+            <i class="iconfont">&#xe663;</i>
+            <a href="#"><button class="iconfont">&#xe651;</button></a>
+            <ul class="search-list">
+            </ul>
+        </div>
+        <div class="hotwords">
+        </div>
+        <div class="settleup">
+            <i class="iconfont">&#xe73d;</i>
+            <a target="_blank" href="//cart.jd.com/cart.action">我的购物车</a>
+            <i class="count">0</i>
+        </div>
+        <ul class="navitems">
+            <li><a href="#" class="red">秒杀</a></li>
+            <li><a href="#" class="red">优惠券</a></li>
+            <li><a href="#">PLUS会员</a></li>
+            <li><a href="#">品牌闪购</a></li>
+            <li><a href="#">拍卖</a></li>
+            <li><a href="#">京东家电</a></li>
+            <li><a href="#">京东超市</a></li>
+            <li><a href="#">京东生鲜</a></li>
+            <li><a href="#">京东国际</a></li>
+            <li><a href="#">京东金融</a></li>
+        </ul>
+    </div>
+    <div class="ad">
+        <a href="#">
+            <img src="https://img11.360buyimg.com/babel/jfs/t1/166031/32/8804/91474/603d9b69E92708df8/1e33bdff84e2c848.png.webp"
+                alt="">
+        </a>
+    </div>
+</div>
+
+<script>
+    (function () {
+        // 获取根据搜索内容出现的搜索列表
+        window.searchCallback = function (res) {
+            var str = res.result.reduce(function (prev, item) {
+                return (prev + `<li><span>${item[0]}</span>
+                    <span class="number">${parseInt(item[1])}</span></li>`);
+            }, "");
+            if (res.result.length === 0) {
+                str = `<li>未搜索到相关信息</li>`;
+            }
+            $('.search-list').html(str).show();
+        };
+        var timer = null;
+        $('.search-input').on('input', function () {
+            clearTimeout(timer);
+            // this.value是JS原生态写法
+            // $(this).val()是JQ的写法
+            var val = $(this).val();
+            if (val) {
+                timer = setTimeout(function () {
+                    $.ajax({
+                        url: "https://suggest.taobao.com/sug",
+                        dataType: "jsonp",
+                        data: {
+                            code: "utf-8",
+                            q: val,
+                            callback: "searchCallback",
+                        },
+                    });
+                }, 500);
+            }
+            $('.search-list').hide();
+        });
+        var timer1 = null;
+        $('.search-form').mouseleave(function () {
+            clearTimeout(timer1);
+            timer1 = setTimeout(function () {
+                $('.search-list').hide();
+            }, 500);
+        }).mouseenter(function () {
+            clearTimeout(timer1);
+        });
+
+        // 获取热门关键词
+        $.ajax({
+            url: "/hotWords",
+            dataType: "json",
+            success: function (res) {
+                var str = res.result.reduce(function (prev, item) {
+                    return prev + `<a href="${item.href}">${item.word}</a>`;
+                }, "");
+                $('.hotwords').html(str);
+            },
+        });
+
+        // 获取推荐的关键词(鼠标移入/移出 暂停/继续)
+        var timer2 = null;
+        $('.hotwords').on('mouseenter', 'a:first-of-type', function () {
+                clearInterval(timer2);
+            })
+            .on('mouseleave', 'a:first-of-type', function () {
+                randomWord();
+            })
+
+        function randomWord() {
+            timer2 = setInterval(function () {
+                $.ajax({
+                    url: "/recommendWords",
+                    dataType: "json",
+                    success: function (res) {
+                        // 找到推荐的关键词
+                        $('.hotwords').find('a').eq(0)
+                            .text(res.word).attr("href", res.href);
+                    },
+                });
+            }, 2000);
+        }
+        randomWord();
+
+        // logo区域
+        var logoTimer = null;
+        $('.logo h1').mouseenter(function () {
+            clearInterval(logoTimer);
+            // 第一次鼠标移入logo区域时添加标记 后续根据标记判断gif图是否正在加载(animate_start)
+            if ($('.img-gif').hasClass("animate_start")) {
+                $('.img-gif').removeClass("animate_end");
+            } else {
+                $(this).find('.img-gif').fadeIn().addClass("animate_start").removeClass("animate_end")
+                    .attr("src",
+                        "http://img1.360buyimg.com/da/jfs/t1/14716/32/11447/94000/5c90a83bEaa611013/18490bf08654ba09.gif?v=" +
+                        Math.random()
+                    );
+                // gif图的加载时间是固定的,加载完成后(animate_end)添加标记
+                setTimeout(function () {
+                    $('.img-gif').addClass("animate_end").removeClass("animate_start");
+                }, 5000);
+            }
+        }).mouseleave(function () {
+            // 判断gif图加载完成后,鼠标已不在区域内 以及鼠标正在区域内移出 都将显示静态图片
+            if ($('.img-gif').hasClass("animate_end")) {
+                $(this).find('.img-gif').fadeOut();
+            } else {
+                clearInterval(logoTimer);
+                // 对gif图加载状态进行监听
+                logoTimer = setInterval(function () {
+                    if ($('.img-gif').hasClass("animate_end")) {
+                        $('.img-gif').fadeOut();
+                        clearInterval(logoTimer);
+                    }
+                }, 1000);
+            }
+        })
+    })();
+</script>

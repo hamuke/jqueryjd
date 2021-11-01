@@ -1,0 +1,82 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+a{
+    color: #666;
+}
+
+body {
+    background-color: #eee;
+}
+
+/* 清除浮动 */
+.clearfix::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.w,
+.fs {
+    margin: 0 auto;
+    width: 1190px;
+    min-height: 100% ;
+}
+
+.shortcut {
+    height: 30px;
+    line-height: 30px;
+    color: #999;
+    border-bottom: 1px solid #ddd;
+    background-color: #e3e4e5;
+    font-size: 12px;
+}
+
+.header {
+    height: 140px;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.fs {
+    height: 470px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.fs-1,.fs-2{
+    float: left;
+    margin-right: 10px;
+}
+.fs-1,.fs-3{
+    width: 190px;
+    background-color: #fff;
+}
+.fs-1,.fs-2,.fs-3{
+    height: 100%;
+}
+.fs-2{
+    width: 790px;
+}
+.fs-3{
+    float: right;
+}
+
+.fs-2 .sliderWrapper{
+    width: 590px;
+    height: 470px;
+    float: left;
+}
+
+.fs-2 .sliderBanner{
+    width: 190px;
+    height: 470px;
+    float: right;
+}
+
+.seckill {
+    height: 260px;
+    margin-bottom: 20px;
+}
