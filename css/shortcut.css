@@ -1,0 +1,147 @@
+.clearfix::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.shortcut a {
+    color: #999;
+}
+
+.local:hover,
+a:hover {
+    color: #e1251b;
+}
+
+a.red {
+    color: #f10215;
+}
+
+.spacer {
+    width: 1px;
+    height: 10px;
+    background: #ccc;
+    margin: 10px 5px 0;
+}
+
+.local {
+    width: 58px;
+    cursor: pointer;
+    text-align: center;
+    float: left;
+}
+
+.local i {
+    color: #f10215;
+    font-size: 14px;
+}
+
+.navbar {
+    float: right;
+}
+
+.navbar li {
+    float: left;
+    position: relative;
+}
+
+.navbar .nav-item {
+    padding: 0 4px;
+}
+
+.nav-item .dt-icon {
+    cursor: pointer;
+    padding: 0 7px;
+    /* 如果边框在hover后设置会造成位置偏差 */
+    border: 1px solid transparent;
+}
+
+.dropdown {
+    background-color: #fff;
+    border-color: #e3e4e5;
+    border-bottom-color: transparent;
+}
+
+.dt-icon i {
+    font-size: 4px;
+    font-weight: bold;
+}
+
+/* 下拉列表 */
+.dropdown-list {
+    position: absolute;
+    top: 32px;
+    width: 160px;
+    background: #fff;
+    z-index: 99;
+    border: 1px solid #e3e4e5;
+    border-top: transparent;
+    padding: 12px;
+}
+
+.dropdown-list dl,
+.dropdown-list dd {
+    float: left;
+}
+
+.dropdown-list dt {
+    font-weight: bold;
+    color: #666;
+}
+
+.dropdown-list.my-jd {
+    width: 240px;
+    display: none;
+}
+
+.dropdown-list.my-jd dl {
+    padding-bottom: 10px;
+}
+
+.dropdown-list.my-jd dl:not(dl:first-child) {
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}
+
+.dropdown-list.my-jd dd {
+    width: 120px;
+}
+
+.dropdown-list.my-company {
+    width: 140px;
+    display: none;
+}
+
+.dropdown-list.my-company dd:not(dd:last-child) {
+    width: 60px;
+}
+
+.dropdown-list.my-serve {
+    width: 140px;
+    right: 4px;
+    display: none;
+}
+
+.dropdown-list.my-serve dd {
+    width: 70px;
+}
+
+.dropdown-list.my-nav {
+    width: 1190px;
+    right: -84px;
+    left: auto;
+    display: none;
+}
+
+.dropdown-list.my-nav dl {
+    width: 340px;
+}
+
+.dropdown-list.my-nav dl:not(dl:first-child) {
+    border-left: 1px solid #eee;
+    padding-left: 30px;
+}
+
+.dropdown-list.my-nav dd {
+    width: 85px;
+}
